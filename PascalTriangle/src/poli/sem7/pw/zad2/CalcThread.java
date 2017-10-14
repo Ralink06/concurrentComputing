@@ -13,10 +13,10 @@ public class CalcThread implements Runnable {
     public void run() {
         try {
             Position p;
+            Cell cell = null;
             do {
                 p = pt.getFreeCell();
-                Cell cell = null;
-                if (p.getNum() >= 0) {
+                if (p != null && p.getNum() >= 0) {
                     cell = pt.cells[p.getRow()][p.getNum()];
                     cell.getSemaphore().acquire();
                 }
@@ -29,10 +29,9 @@ public class CalcThread implements Runnable {
                         System.out.println("[" + Thread.currentThread().getName() + "] cell(" + p + ") = " + val);
                         pt.setValue(p, val);
                     } else {
-//                        System.out.println("[" + Thread.currentThread().getName() + "] thread is going to sleep");
                     }
                 }
-                if (p.getNum() >= 0) {
+                if (p != null && p.getNum() >= 0) {
                     cell.getSemaphore().release();
                 }
             } while (p != null);
