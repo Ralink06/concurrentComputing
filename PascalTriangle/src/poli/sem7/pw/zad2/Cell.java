@@ -1,14 +1,18 @@
 package poli.sem7.pw.zad2;
 
+import java.util.concurrent.Semaphore;
+
 public class Cell {
     private long value;
     private boolean calculated;
+    private Semaphore semaphore;
     int color;
 
     Cell() {
         this.value = -1;
         this.calculated = false;
         color = 0;
+        semaphore = new Semaphore(1);
     }
 
     Cell(long value) {
@@ -27,6 +31,10 @@ public class Cell {
 
     boolean isCalculated() {
         return calculated;
+    }
+
+    Semaphore getSemaphore() {
+        return this.semaphore;
     }
 
     public String toString() {

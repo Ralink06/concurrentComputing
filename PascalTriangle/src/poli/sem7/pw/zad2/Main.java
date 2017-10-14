@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int POWER = 100;
+        int POWER = 10;
         PascalTriangle pt = new PascalTriangle(POWER);
         frame = new MainFrame(POWER, pt);
 

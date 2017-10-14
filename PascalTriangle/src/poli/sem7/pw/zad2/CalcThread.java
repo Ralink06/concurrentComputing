@@ -2,8 +2,6 @@ package poli.sem7.pw.zad2;
 
 public class CalcThread implements Runnable {
 
-    private static final Object waitObject = new Object();
-
     private PascalTriangle pt;
     private long sleepTime;
 
@@ -17,6 +15,12 @@ public class CalcThread implements Runnable {
             Position p;
             do {
                 p = pt.getFreeCell();
+                Cell cell = null;
+                if (p.getNum() >= 0) {
+                    cell = pt.cells[p.getRow()][p.getNum()];
+                    cell.getSemaphore().acquire();
+                }
+
 
                 if (p != null) {
                     if (p.getRow() >= 0) {
@@ -25,17 +29,13 @@ public class CalcThread implements Runnable {
                                 + pt.cells[p.getRow() - 1][p.getNum()].getValue();
                         System.out.println("[" + Thread.currentThread().getName() + "] cell(" + p + ") = " + val);
                         pt.setValue(p, val);
-                        synchronized (waitObject) {
-                            waitObject.notifyAll();
-                        }
                     } else {
-                        System.out.println("[" + Thread.currentThread().getName() + "] thread is going to sleep");
-                        synchronized (waitObject) {
-                            waitObject.wait();
-                        }
+//                        System.out.println("[" + Thread.currentThread().getName() + "] thread is going to sleep");
                     }
                 }
-
+                if (p.getNum() >= 0) {
+                    cell.getSemaphore().release();
+                }
             } while (p != null);
         } catch (InterruptedException e) {
             e.printStackTrace();
