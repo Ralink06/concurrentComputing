@@ -21,7 +21,6 @@ public class CalcThread implements Runnable {
                     cell.getSemaphore().acquire();
                 }
 
-
                 if (p != null) {
                     if (p.getRow() >= 0) {
                         Thread.sleep(sleepTime);
