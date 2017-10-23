@@ -12,15 +12,30 @@ public class CalcThread implements Runnable {
 
     public void run() {
 
-        do {
-//            System.out.println(Thread.currentThread().getName());
-            try {
-                Thread.sleep(this.sleepTime);
+        try {
+            Position p;
+            do {
+                p = pt.getFreeCell();
+                if (p != null && p.getNum() >= 0) {
+                    pt.getSemaphore().drainPermits();
+                    if (pt.countFreeCells() != null) {
+//                        System.out.println("Acquire lock: " + pt.getSemaphore().availablePermits());
+                        pt.getSemaphore().tryAcquire(pt.countFreeCells().intValue());
+//                        System.out.println("Available cells: " + pt.countFreeCells().intValue());
+                    }
+                    Thread.sleep(sleepTime);
+                    long val = pt.cells[p.getRow() - 1][p.getNum() - 1].getValue()
+                            + pt.cells[p.getRow() - 1][p.getNum()].getValue();
+                    System.out.println("[" + Thread.currentThread().getName() + "] cell(" + p + ") = " + val);
+                    pt.setValue(p, val);
+                    pt.getSemaphore().release();
+//                    System.out.println("Release lock: " + pt.getSemaphore().availablePermits());
+                }
+            } while (p != null);
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } while (true);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        try {
 //            Position p;
 //            Cell cell = null;
