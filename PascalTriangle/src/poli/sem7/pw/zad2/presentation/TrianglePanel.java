@@ -34,12 +34,10 @@ public class TrianglePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Polygon p = new Polygon();
-        p.addPoint(-lenght2, -lenght / 2);
-        p.addPoint(0, -(int) (lenght / 2 + lenght / Math.sqrt(2)));
-        p.addPoint(lenght2, -lenght / 2);
-        p.addPoint(lenght2, lenght / 2);
-        p.addPoint(0, (int) (lenght / 2 + lenght / Math.sqrt(2)));
-        p.addPoint(-lenght2, lenght / 2);
+        p.addPoint(-lenght2, -lenght);
+        p.addPoint(lenght2, -lenght );
+        p.addPoint(lenght2, lenght);
+        p.addPoint(-lenght2, lenght);
         p.translate(lenght2 * numRows + 50, 50 + lenght);
 
         int px = lenght2 * numRows + 50;
