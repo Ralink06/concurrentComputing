@@ -3,14 +3,17 @@ package poli.sem7.pw.zad2;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class PascalTriangle {
 
     Cell cells[][];
     private List<Position> skipped;
     private Position pointer;
+    private Semaphore semaphore;
 
-    PascalTriangle(int num) {
+    PascalTriangle(int num, Semaphore semaphore) {
+        this.semaphore = semaphore;
         assert (num > 0);
         cells = new Cell[num][];
         cells[0] = createRow(1);
@@ -104,9 +107,6 @@ public class PascalTriangle {
 
     // sets cell value
     void setValue(Position pointer, long value) {
-        if (cells[pointer.getRow()][pointer.getNum()].getValue() != -1) {
-            throw new RuntimeException("kupa");
-        }
         cells[pointer.getRow()][pointer.getNum()] = new Cell(value);
         Main.frame.repaint();
     }
