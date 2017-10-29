@@ -1,5 +1,6 @@
 package pl.edu.pw.zad3.runnable;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.edu.pw.zad3.FirstBuffer;
 import pl.edu.pw.zad3.Package;
 import pl.edu.pw.zad3.Portion;
@@ -7,6 +8,7 @@ import pl.edu.pw.zad3.SecondBuffer;
 
 import java.util.Random;
 
+@Slf4j
 public class Processor implements Runnable {
 
     private FirstBuffer buffer1;
@@ -24,11 +26,13 @@ public class Processor implements Runnable {
             while (true) {
                 Portion[] elements = buffer1.getAllAvailableElements();
                 Package pack = new Package(elements);
+                log.info("Create new Package of <{}> elements", elements.length);
                 buffer2.put(pack);
-                Thread.sleep(500 + rand.nextInt(1500));
+                log.info("Put new package to buffer 2");
+                Thread.sleep(200 + rand.nextInt(1500));
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("{}", e);
         }
     }
 }

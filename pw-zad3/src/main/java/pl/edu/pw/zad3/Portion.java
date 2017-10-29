@@ -3,17 +3,17 @@ package pl.edu.pw.zad3;
 import java.awt.*;
 
 public class Portion {
-    private String text;
+    private int portionNumber;
     private int color;
 
-    public Portion(final String text) {
-        this.text = text;
+    public Portion(final int portionNumber) {
+        this.portionNumber = portionNumber;
         String name = Thread.currentThread().getName();
         color = Integer.parseInt(name.substring(name.indexOf("-") + 1));
     }
 
     public String toString() {
-        return text;
+        return String.format("%d", this.portionNumber);
     }
 
     public Color getColor() {

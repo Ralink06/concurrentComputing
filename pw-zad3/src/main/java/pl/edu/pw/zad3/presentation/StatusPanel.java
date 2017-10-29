@@ -55,7 +55,7 @@ public class StatusPanel extends JPanel {
                 graphics.setColor(portion.getColor());
                 graphics.fillRect(posX, posY + i * 30, 150, 30);
                 graphics.setColor(Color.black);
-                graphics.drawString(portion.toString(), posX + 60, posY + i * 30 + 20);
+                graphics.drawString(String.format("Portion number %s", portion.toString()), posX + 30, posY + i * 30 + 20);
             } else {
                 graphics.setColor(Color.white);
                 graphics.fillRect(posX, posY + i * 30, 150, 30);
@@ -65,7 +65,7 @@ public class StatusPanel extends JPanel {
             graphics.drawRect(posX, posY + i * 30, 150, 30);
         }
 
-        posX = 300;
+        posX = 250;
         posY = 30;
 
         graphics.setColor(Color.black);
@@ -94,7 +94,7 @@ public class StatusPanel extends JPanel {
                 graphics.setColor(Color.orange);
                 graphics.fillRect(posX, posY + i * 30, 150, 30);
                 graphics.setColor(Color.black);
-                graphics.drawString(String.format("ilość porcji: %d", pack.getSize()), posX + 40, posY
+                graphics.drawString(String.format("Package of %d portions", pack.getSize()), posX + 10, posY
                         + i * 30 + 20);
             } else {
                 graphics.setColor(Color.white);

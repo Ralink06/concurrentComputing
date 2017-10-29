@@ -20,20 +20,20 @@ public class Main {
         SecondBufferListener secondBufferListener = new SecondBufferListener();
         ConsumerListener consumerListener = new ConsumerListener();
 
-        FirstBuffer buffer1 = new FirstBuffer(BUF1SIZE);
-        buffer1.addListener(firstBufferListener);
+        FirstBuffer firstBuffer = new FirstBuffer(BUF1SIZE);
+        firstBuffer.addListener(firstBufferListener);
 
-        SecondBuffer buffer2 = new SecondBuffer(BUF2SIZE);
-        buffer2.addListener(secondBufferListener);
+        SecondBuffer secondBuffer = new SecondBuffer(BUF2SIZE);
+        secondBuffer.addListener(secondBufferListener);
 
         frame = new MainFrame();
 
-        Producer firstProducer = new Producer(buffer1, 500);
-        Producer secondProducer = new Producer(buffer1, 300);
+        Producer firstProducer = new Producer(firstBuffer, 500);
+        Producer secondProducer = new Producer(firstBuffer, 300);
 
-        Processor processor = new Processor(buffer1, buffer2);
+        Processor processor = new Processor(firstBuffer, secondBuffer);
 
-        Consumer consumer = new Consumer(buffer2);
+        Consumer consumer = new Consumer(secondBuffer);
         consumer.addListener(consumerListener);
 
         new Thread(firstProducer).start();

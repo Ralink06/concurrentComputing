@@ -1,5 +1,7 @@
 package pl.edu.pw.zad3;
 
+import java.util.Arrays;
+
 public class Package {
 
     private Portion[] portions;
@@ -9,11 +11,7 @@ public class Package {
     }
 
     public String toString() {
-        StringBuilder elem = new StringBuilder(portions[0].toString());
-        for (int i = 1; i < portions.length; i++) {
-            elem.append(", ").append(portions[i]);
-        }
-        return ("Package of " + portions.length + " elements: " + elem);
+        return Arrays.toString(portions);
     }
 
     public int getSize() {

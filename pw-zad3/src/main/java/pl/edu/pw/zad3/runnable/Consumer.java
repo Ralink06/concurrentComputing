@@ -1,5 +1,6 @@
 package pl.edu.pw.zad3.runnable;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.edu.pw.zad3.Package;
 import pl.edu.pw.zad3.SecondBuffer;
 import pl.edu.pw.zad3.listener.BufferListener;
@@ -7,6 +8,7 @@ import pl.edu.pw.zad3.listener.BufferListener;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 public class Consumer implements Runnable {
 
     private final SecondBuffer buffer2;
@@ -23,18 +25,19 @@ public class Consumer implements Runnable {
     public void run() {
         try {
             while (true) {
-                Package[] elements = buffer2.getAllElements();
-                System.out.println("Consumer:");
-                packages = new LinkedList<>();
+                Package[] packages = buffer2.getAllElements();
+                this.packages = new LinkedList<>();
 
-                for (Package element : elements) {
-                    System.out.println("\t" + element);
-                    packages.add(element);
+                log.info("Consumer consumes <{}> packages", packages.length);
+
+                for (Package pack : packages) {
+                    log.info("Package size <{}>, with elements <{}>", pack.getSize(), pack);
+                    this.packages.add(pack);
                 }
                 notifyListeners();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("{}", e);
         }
     }
 
