@@ -5,25 +5,30 @@ import pl.edu.pw.zad3.listener.BufferListener;
 import java.util.LinkedList;
 import java.util.List;
 
-class SecondBuffer {
+public class SecondBuffer {
 
     private Queue<Package> queue;
     private List<BufferListener<Package>> listeners;
 
-    SecondBuffer(int size) {
+    SecondBuffer(final int size) {
         queue = new Queue<>(size);
         listeners = new LinkedList<>();
     }
 
-    synchronized void put(Package pack) throws InterruptedException {
-        while (queue.isFull()) this.wait();
+    public synchronized void put(final Package pack) throws InterruptedException {
+        while (queue.isFull()) {
+            wait();
+        }
+
         queue.put(pack);
         notifyListeners();
-        this.notifyAll();
+        notifyAll();
     }
 
-    synchronized Package[] getAllElements() throws InterruptedException {
-        while (!queue.isFull()) this.wait();
+    public synchronized Package[] getAllElements() throws InterruptedException {
+        while (!queue.isFull()) {
+            wait();
+        }
 
         int size = queue.getCurrentSize();
         Package[] elements = new Package[size];
@@ -31,11 +36,12 @@ class SecondBuffer {
             elements[i] = queue.get();
         }
         notifyListeners();
-        this.notifyAll();
+        notifyAll();
+
         return elements;
     }
 
-    void addListener(BufferListener<Package> listener) {
+    void addListener(final BufferListener<Package> listener) {
         listeners.add(listener);
     }
 

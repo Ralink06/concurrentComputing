@@ -1,5 +1,7 @@
-package pl.edu.pw.zad3;
+package pl.edu.pw.zad3.runnable;
 
+import pl.edu.pw.zad3.Package;
+import pl.edu.pw.zad3.SecondBuffer;
 import pl.edu.pw.zad3.listener.BufferListener;
 
 import java.util.LinkedList;
@@ -7,14 +9,14 @@ import java.util.List;
 
 public class Consumer implements Runnable {
 
-    private SecondBuffer buffer2;
-    private List<BufferListener<Package>> listeners;
-    private List<Package> packs;
+    private final SecondBuffer buffer2;
+    private final List<BufferListener<Package>> listeners;
+    private List<Package> packages;
 
-    Consumer(SecondBuffer buffer2) {
+    public Consumer(final SecondBuffer buffer2) {
         this.buffer2 = buffer2;
-        packs = new LinkedList<>();
-        listeners = new LinkedList<>();
+        this.packages = new LinkedList<>();
+        this.listeners = new LinkedList<>();
     }
 
     @Override
@@ -23,11 +25,11 @@ public class Consumer implements Runnable {
             while (true) {
                 Package[] elements = buffer2.getAllElements();
                 System.out.println("Consumer:");
-                packs = new LinkedList<>();
+                packages = new LinkedList<>();
 
                 for (Package element : elements) {
                     System.out.println("\t" + element);
-                    packs.add(element);
+                    packages.add(element);
                 }
                 notifyListeners();
             }
@@ -36,13 +38,13 @@ public class Consumer implements Runnable {
         }
     }
 
-    void addListener(BufferListener<Package> listener) {
+    public void addListener(final BufferListener<Package> listener) {
         listeners.add(listener);
     }
 
     private void notifyListeners() {
         for (BufferListener<Package> listener : listeners) {
-            listener.onBufferChange(packs);
+            listener.onBufferChange(packages);
         }
     }
 }

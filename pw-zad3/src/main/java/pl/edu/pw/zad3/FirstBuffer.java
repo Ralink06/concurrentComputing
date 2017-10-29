@@ -5,17 +5,17 @@ import pl.edu.pw.zad3.listener.BufferListener;
 import java.util.LinkedList;
 import java.util.List;
 
-class FirstBuffer {
+public class FirstBuffer {
 
     private Queue<Portion> queue;
     private List<BufferListener<Portion>> listeners;
 
-    FirstBuffer(int size) {
+    FirstBuffer(final int size) {
         queue = new Queue<>(size);
         listeners = new LinkedList<>();
     }
 
-    synchronized void put(Portion portion) throws InterruptedException {
+    public synchronized void put(final Portion portion) throws InterruptedException {
         while (queue.isFull()) {
             wait();
         }
@@ -25,7 +25,7 @@ class FirstBuffer {
         notifyAll();
     }
 
-    synchronized Portion[] getAllAvailableElements() throws InterruptedException {
+    public synchronized Portion[] getAllAvailableElements() throws InterruptedException {
         while (queue.isEmpty()) {
             wait();
         }
@@ -41,7 +41,7 @@ class FirstBuffer {
         return elements;
     }
 
-    void addListener(BufferListener<Portion> listener) {
+    void addListener(final BufferListener<Portion> listener) {
         listeners.add(listener);
     }
 

@@ -1,4 +1,7 @@
-package pl.edu.pw.zad3;
+package pl.edu.pw.zad3.runnable;
+
+import pl.edu.pw.zad3.FirstBuffer;
+import pl.edu.pw.zad3.Portion;
 
 import java.util.Random;
 
@@ -7,7 +10,7 @@ public class Producer implements Runnable {
     private FirstBuffer buffer;
     private int sleepTime;
 
-    Producer(FirstBuffer buffer, int sleepTime) {
+    public Producer(final FirstBuffer buffer, final int sleepTime) {
         this.buffer = buffer;
         this.sleepTime = sleepTime;
     }
@@ -16,10 +19,9 @@ public class Producer implements Runnable {
     public void run() {
         Random rand = new Random(System.nanoTime());
         try {
-            String name = Thread.currentThread().getName();
             int i = 0;
             while (true) {
-                Portion p = new Portion(/*"watek" + num + "_porcja"*/"porcja  " + i);
+                Portion p = new Portion("porcja  " + i);
                 System.out.println("adding: " + p);
                 buffer.put(p);
                 System.out.println(p + " was added");

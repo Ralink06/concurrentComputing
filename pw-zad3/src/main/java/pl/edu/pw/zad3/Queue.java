@@ -8,14 +8,14 @@ class Queue<T> {
     private T[] buffer;
     private int startPtr, endPtr, cnt;
 
-    Queue(int size) {
+    Queue(final int size) {
         buffer = (T[]) new Object[size];
         startPtr = 0;
         endPtr = 0;
         cnt = 0;
     }
 
-    void put(T element) {
+    void put(final T element) {
         if (cnt == buffer.length) throw new RuntimeException("Queue overflow");
         buffer[endPtr] = element;
         endPtr++;

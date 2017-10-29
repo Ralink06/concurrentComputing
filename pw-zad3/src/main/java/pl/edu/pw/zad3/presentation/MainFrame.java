@@ -15,12 +15,12 @@ public class MainFrame extends JFrame {
         add(panel);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1300, 700);
         setVisible(true);
-        setTitle("Zad 3 - Monitory");
+        setTitle("Programowanie Współbieżne - zadanie 3 monitory");
     }
 
-    public void updateBuffer1(List<Portion> elements) {
+    public void updateBuffer1(final List<Portion> elements) {
         panel.setBuffer1(elements);
         panel.repaint();
     }
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
         panel.repaint();
     }
 
-    public void updateConsumer(List<Package> elements) {
+    public void updateConsumer(final List<Package> elements) {
         panel.setConsumer(elements);
         panel.repaint();
     }

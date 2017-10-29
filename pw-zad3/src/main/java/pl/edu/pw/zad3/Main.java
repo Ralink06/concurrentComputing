@@ -4,6 +4,9 @@ import pl.edu.pw.zad3.listener.ConsumerListener;
 import pl.edu.pw.zad3.listener.FirstBufferListener;
 import pl.edu.pw.zad3.listener.SecondBufferListener;
 import pl.edu.pw.zad3.presentation.MainFrame;
+import pl.edu.pw.zad3.runnable.Consumer;
+import pl.edu.pw.zad3.runnable.Processor;
+import pl.edu.pw.zad3.runnable.Producer;
 
 public class Main {
 
@@ -11,7 +14,7 @@ public class Main {
     public static int BUF1SIZE = 15;
     public static int BUF2SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
         FirstBufferListener firstBufferListener = new FirstBufferListener();
         SecondBufferListener secondBufferListener = new SecondBufferListener();

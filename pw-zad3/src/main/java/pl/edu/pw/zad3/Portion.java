@@ -6,7 +6,7 @@ public class Portion {
     private String text;
     private int color;
 
-    Portion(String text) {
+    public Portion(final String text) {
         this.text = text;
         String name = Thread.currentThread().getName();
         color = Integer.parseInt(name.substring(name.indexOf("-") + 1));
@@ -19,12 +19,12 @@ public class Portion {
     public Color getColor() {
         switch (color) {
             case 1:
-                return Color.red;
+                return Color.magenta;
             case 2:
-                return Color.green;
+                return Color.cyan;
             case 3:
-                return Color.blue;
+                return Color.YELLOW;
         }
-        return Color.magenta;
+        return Color.pink;
     }
 }

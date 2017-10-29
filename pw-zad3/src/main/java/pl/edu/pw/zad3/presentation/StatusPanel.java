@@ -21,40 +21,35 @@ public class StatusPanel extends JPanel {
         consumer = new LinkedList<>();
     }
 
-    void setBuffer1(List<Portion> buffer1) {
+    void setBuffer1(final List<Portion> buffer1) {
         this.buffer1 = buffer1;
     }
 
-    void setBuffer2(List<Package> buffer2) {
+    void setBuffer2(final List<Package> buffer2) {
         this.buffer2 = buffer2;
     }
 
-    void setConsumer(List<Package> consumer) {
+    void setConsumer(final List<Package> consumer) {
         this.consumer = consumer;
     }
 
-
     @Override
-    protected void paintComponent(Graphics graphics) {
+    protected void paintComponent(final Graphics graphics) {
         super.paintComponent(graphics);
 
         List<Portion> b1 = buffer1;
         List<Package> b2 = buffer2;
         List<Package> b3 = consumer;
 
-        //g.drawString(b1.size() + "/" + Main.BUF1SIZE, 10, 40);
-        //g.drawString(b2.size() + "/" + Main.BUF2SIZE, 10, 80);
-
         int posX = 30;
         int posY = 30;
 
         graphics.setColor(Color.black);
-        graphics.drawString("Pierwszy bufor (" + b1.size() + "/" + Main.BUF1SIZE + ")", posX + 20, posY);
+        graphics.drawString(String.format("Pierwszy bufor %d - ilość, %d - rozmiar", b1.size(), Main.BUF1SIZE), posX + 20, posY);
 
         posY += 15;
 
         for (int i = 0; i < Main.BUF1SIZE; i++) {
-
             if (i < b1.size()) {
                 Portion portion = b1.get(i);
                 graphics.setColor(portion.getColor());
@@ -74,10 +69,24 @@ public class StatusPanel extends JPanel {
         posY = 30;
 
         graphics.setColor(Color.black);
-        graphics.drawString("Drugi bufor (" + b2.size() + "/" + Main.BUF2SIZE + ")", posX + 20, posY);
+        graphics.drawString(String.format("Drugi bufor %d - ilość, %d - rozmiar", b2.size(), Main.BUF2SIZE), posX + 20, posY);
 
         posY += 15;
 
+        drawBuffer(graphics, b2, posX, posY);
+
+        posX = 570;
+        posY = 30;
+
+        graphics.setColor(Color.black);
+        graphics.drawString("Ostatnio zdjęte", posX + 30, posY);
+
+        posY += 15;
+
+        drawBuffer(graphics, b3, posX, posY);
+    }
+
+    private void drawBuffer(final Graphics graphics, final List<Package> b2, final int posX, final int posY) {
         for (int i = 0; i < Main.BUF2SIZE; i++) {
 
             if (i < b2.size()) {
@@ -85,7 +94,7 @@ public class StatusPanel extends JPanel {
                 graphics.setColor(Color.orange);
                 graphics.fillRect(posX, posY + i * 30, 150, 30);
                 graphics.setColor(Color.black);
-                graphics.drawString("Ilo�� porcji: " + pack.getSize(), posX + 40, posY
+                graphics.drawString(String.format("ilość porcji: %d", pack.getSize()), posX + 40, posY
                         + i * 30 + 20);
             } else {
                 graphics.setColor(Color.white);
@@ -95,33 +104,5 @@ public class StatusPanel extends JPanel {
             graphics.setColor(Color.black);
             graphics.drawRect(posX, posY + i * 30, 150, 30);
         }
-
-        // ///////////////////////////////////////////////////
-        posX = 570;
-        posY = 30;
-
-        graphics.setColor(Color.black);
-        graphics.drawString("Ostatnio zdj�te", posX + 30, posY);
-
-        posY += 15;
-
-        for (int i = 0; i < Main.BUF2SIZE; i++) {
-
-            if (i < b3.size()) {
-                Package pack = b3.get(i);
-                graphics.setColor(Color.orange);
-                graphics.fillRect(posX, posY + i * 30, 150, 30);
-                graphics.setColor(Color.black);
-                graphics.drawString("Ilo�� porcji: " + pack.getSize(), posX + 40, posY
-                        + i * 30 + 20);
-            } else {
-                graphics.setColor(Color.white);
-                graphics.fillRect(posX, posY + i * 30, 150, 30);
-            }
-
-            graphics.setColor(Color.black);
-            graphics.drawRect(posX, posY + i * 30, 150, 30);
-        }
-
     }
 }
