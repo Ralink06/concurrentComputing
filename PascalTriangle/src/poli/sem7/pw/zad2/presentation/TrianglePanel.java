@@ -11,7 +11,7 @@ import poli.sem7.pw.zad2.PascalTriangle;
 
 public class TrianglePanel extends JPanel {
 
-    private Color[] colors = {Color.white, Color.red, Color.green, Color.blue, Color.orange, Color.MAGENTA};
+    private Color[] colors = {Color.white, Color.red, Color.green, Color.blue, Color.orange, Color.MAGENTA, Color.cyan, Color.darkGray, Color.yellow};
 
     private int numRows;
     private int lenght;

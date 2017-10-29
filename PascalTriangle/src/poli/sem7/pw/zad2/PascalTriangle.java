@@ -1,6 +1,8 @@
 package poli.sem7.pw.zad2;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class PascalTriangle {
@@ -9,7 +11,6 @@ public class PascalTriangle {
     private List<Position> skipped;
     private Position pointer;
     private Semaphore semaphore;
-    private Long permits;
 
     PascalTriangle(int num, Semaphore semaphore) {
         this.semaphore = semaphore;
@@ -57,7 +58,7 @@ public class PascalTriangle {
     }
 
     // gets first cell witch can be calculated
-    synchronized Position getFreeCell() throws InterruptedException {
+    public Position getFreeCell() throws InterruptedException {
         if (pointer == null) {
             return null;
         }
@@ -104,40 +105,6 @@ public class PascalTriangle {
 
     }
 
-    synchronized Long countFreeCells() {
-        Long freeCells = 0L;
-
-        if (pointer == null) {
-            return null;
-        }
-
-        for (Iterator<Position> iterator = skipped.iterator(); iterator
-                .hasNext(); ) {
-            Position pos = iterator.next();
-            if (canBeCalculated(pos)) {
-                freeCells++;
-            }
-        }
-
-        int row = pointer.getRow();
-        for (int i = pointer.getNum(); i < cells[row].length; i++) {
-            if (!cells[row][i].isCalculated()) {
-                if (canBeCalculated(new Position(row, i))) {
-                    // can add
-                    freeCells++;
-                }
-            }
-        }
-
-        // everything is calculated
-        if (row + 1 >= cells.length && skipped.size() == 0) {
-            return null;
-        }
-
-        // nothing to do
-        return freeCells;
-    }
-
     // sets cell value
     void setValue(Position pointer, long value) {
         cells[pointer.getRow()][pointer.getNum()] = new Cell(value);
@@ -158,10 +125,6 @@ public class PascalTriangle {
         if (cells[row] != null && cells[row][col] != null && cells[row][col].isCalculated())
             return cells[row][col].color;
         return 0;
-    }
-
-    public long getPermits() {
-        return permits;
     }
 
     public Semaphore getSemaphore() {
