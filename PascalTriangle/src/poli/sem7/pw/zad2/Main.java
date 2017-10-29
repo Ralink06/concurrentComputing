@@ -13,7 +13,7 @@ public class Main {
 
     static MainFrame frame;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         int POWER = 14;
         Semaphore semaphore = new Semaphore(1);
@@ -39,6 +39,7 @@ public class Main {
         while ((t6.isAlive() && t5.isAlive() && t4.isAlive() && t3.isAlive() && t2.isAlive() && t1.isAlive())) {
             end = LocalTime.now();
         }
+        Thread.sleep(1000);
         System.out.println("Total time: " + ChronoUnit.MILLIS.between(startTime, end) + "ms");
     }
 
