@@ -3,6 +3,9 @@
 bin/
 .idea/
 *.iml
+.gradle/
+gradle/
+gradlew*
 
 # Log file
 *.log
