@@ -29,13 +29,12 @@ public class SecondBuffer implements Runnable {
         while (true) {
             try {
                 if (buffer.size() < maxSize) {
-                    Integer portion = queue.take();
-                    buffer.add(portion);
-                    log.info("second buffer contain {}", buffer);
+                    Integer packageValue = queue.take();
+                    buffer.add(packageValue);
+                    log.info("Add package <{}> to buffer <{}>", packageValue, buffer);
                     Thread.sleep(500 + rand.nextInt(200));
                 } else {
                     Thread.sleep(500 + rand.nextInt(200));
-                    log.info("second buffer is full");
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

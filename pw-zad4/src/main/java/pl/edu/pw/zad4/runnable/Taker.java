@@ -28,17 +28,14 @@ public class Taker implements Runnable {
         Random rand = new Random(System.nanoTime());
         try {
             while (true) {
-                log.info("Try to retrieve portion from first buffer");
-
                 List<Integer> buffer = new ArrayList<>(firstBuffer.getBuffer());
-                log.info("{}", buffer);
-
                 int packageFromBuffer = ((int) buffer.stream().mapToLong(value -> value).sum());
 
-                log.info("{}", packageFromBuffer);
+                log.info("Create package <{}> from <{}>", packageFromBuffer, buffer);
 
                 secondBuffer.getQueue().put(packageFromBuffer);
-                firstBuffer.getBuffer().clear();
+                firstBuffer.getBuffer().removeAll(buffer);
+
                 Thread.sleep(500 + rand.nextInt(sleepTime));
             }
         } catch (InterruptedException e) {

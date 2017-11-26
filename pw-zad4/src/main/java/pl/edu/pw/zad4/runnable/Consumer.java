@@ -11,9 +11,12 @@ import java.util.Random;
 public class Consumer implements Runnable {
 
     private final SecondBuffer secondBuffer;
+    private final int sleepTime;
 
-    public Consumer(final SecondBuffer secondBuffer) {
+    public Consumer(final SecondBuffer secondBuffer,
+                    final int sleepTime) {
         this.secondBuffer = secondBuffer;
+        this.sleepTime = sleepTime;
     }
 
     @Override
@@ -21,15 +24,14 @@ public class Consumer implements Runnable {
         Random rand = new Random(System.nanoTime());
         while (true) {
             try {
-                if (secondBuffer.getBuffer().size() == secondBuffer.getMaxSize()) {
+                if (secondBuffer.getBuffer().size() >= secondBuffer.getMaxSize()) {
                     List<Integer> buffer = new ArrayList<>(secondBuffer.getBuffer());
 
-                    log.info("{}", buffer);
+                    log.info("Consumer consume <{}> from second buffer.", buffer);
                     secondBuffer.getBuffer().removeAll(buffer);
-                    Thread.sleep(1000);
+                    Thread.sleep(500 + rand.nextInt(sleepTime));
                 } else {
-                    log.info("second buffor is not full");
-                    Thread.sleep(1000);
+                    Thread.sleep(500 + rand.nextInt(sleepTime));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

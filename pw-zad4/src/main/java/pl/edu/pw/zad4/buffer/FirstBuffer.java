@@ -26,9 +26,8 @@ public class FirstBuffer implements Runnable {
             try {
                 Integer portion = queue.take();
                 buffer.add(portion);
-                log.info("buffer contain {}", buffer);
+                log.info("Portion <{}> added to <{}>", portion, buffer);
             } catch (InterruptedException e) {
-                log.info("try to take element");
                 e.printStackTrace();
             }
         }
